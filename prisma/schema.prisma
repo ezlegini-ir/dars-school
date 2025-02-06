@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id    Int    @id @default(autoincrement())
+  name  String
+  posts Post[] @relation("PostCategories")
+}
+
+model Post {
+  id         Int        @id @default(autoincrement())
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  title      String
+  url        String     @unique @db.VarChar(85)
+  content    String     @db.Text
+  published  Boolean    @default(false)
+  categories Category[] @relation("PostCategories")
+  image      Image?
+  author     User       @relation(fields: [authorId], references: [id])
+  authorId   Int
+}
+
+model Pages {
+  id          Int    @id @unique @default(autoincrement())
+  title       String
+  description String
+  url         String @unique
+  content     String @db.Text
+}
+
+enum userRole {
+  ADMIN
+  AUTHOR
+}
+
+model User {
+  id            Int       @id @default(autoincrement())
+  name          String    @db.TinyText
+  email         String    @unique
+  password      String
+  emailVerified DateTime?
+  role          userRole  @default(AUTHOR)
+  image         Image?
+  profile       Profile?
+  Post          Post[]
+}
+
+model Image {
+  id        Int       @id @default(autoincrement())
+  public_id String    @unique @default("Cloudinary_Public_URL")
+  url       String    @unique
+  type      ImageType
+  post      Post?     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    Int?      @unique
+  user      User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int?      @unique
+}
+
+enum ImageType {
+  USER
+  POST
+  CONTENT
+}
+
+model Profile {
+  id      Int     @id @default(autoincrement())
+  bio     String?
+  website String? @db.TinyText
+  phone   String? @db.TinyText
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  Int     @unique
+}
+
+model VerificationToken {
+  id      Int      @id @default(autoincrement())
+  email   String   @unique
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model ResetPasswordToken {
+  id      Int      @id @default(autoincrement())
+  email   String   @unique
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
