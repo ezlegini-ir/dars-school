@@ -22,4 +22,3 @@ const page = async () => {
 };
 
 export default page;
-1;
