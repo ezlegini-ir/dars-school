@@ -2,7 +2,7 @@ import { getUserByEmail } from "@/data/user";
 import { uploadImage } from "@/lib/cloudinary";
 import { UserFormType, updateUserFormSchema } from "@/lib/ValidationSchema";
 import prisma from "@/prisma/client";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import { UploadApiResponse } from "cloudinary";
 import { NextRequest, NextResponse } from "next/server";
 

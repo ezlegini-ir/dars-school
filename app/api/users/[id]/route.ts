@@ -4,7 +4,7 @@ import { getUserById } from "@/data/user";
 import { deleteImage, uploadImage } from "@/lib/cloudinary";
 import { updateUserFormSchema, UserFormType } from "@/lib/ValidationSchema";
 import prisma from "@/prisma/client";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import { UploadApiResponse } from "cloudinary";
 import { NextRequest, NextResponse } from "next/server";
 

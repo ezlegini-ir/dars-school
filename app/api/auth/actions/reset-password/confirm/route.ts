@@ -1,6 +1,6 @@
 import { getResetPasswordTokenByToken } from "@/data/reset-password-token";
 import { NextRequest, NextResponse } from "next/server";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import { getUserByEmail } from "@/data/user";
 import prisma from "@/prisma/client";
 

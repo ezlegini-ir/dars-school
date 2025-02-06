@@ -4,7 +4,7 @@ import {
   UpdateProfileFormType,
 } from "@/lib/ValidationSchema";
 import { NextRequest, NextResponse } from "next/server";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import prisma from "@/prisma/client";
 import { getImageByUserId } from "@/data/image";
 import { uploadImage } from "@/lib/cloudinary";
