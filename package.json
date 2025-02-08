@@ -7,7 +7,6 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "gen-icons": "node lib/generateIcons.js",
     "postinstall": "prisma generate"
   },
   "dependencies": {
